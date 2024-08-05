@@ -1,0 +1,113 @@
+<div class="container">
+        <h2>Productos</h2>
+
+        <button type="button" class="btn btn btn-success" data-bs-toggle="modal" data-bs-target="#AgregarModal">
+          Crear nuevo Producto
+        </button>
+
+        <!-- Modal crearProducto-->
+      <div class="modal fade" id="AgregarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Producto</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+
+        
+                <form *ngIf="!editingProducto" (ngSubmit)="addProducto()">
+                  <div class="form-group">
+                    <label for="codigo">Código</label>
+                    <input id="codigo" [(ngModel)]="newProducto.codigo" name="codigo" class="form-control" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" [(ngModel)]="newProducto.nombre" name="nombre" class="form-control" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="valorventa">Valor Venta</label>
+                    <input id="valorventa" [(ngModel)]="newProducto.valorventa" name="valorventa" type="number" class="form-control" required />
+                  </div>
+                  <div class="form-check">
+                    <input id="isiva" [(ngModel)]="newProducto.isiva" name="isiva" type="checkbox" class="form-check-input" />
+                    <label for="isiva" class="form-check-label">Incluye IVA</label>
+                  </div>
+                  <div class="form-group">
+                    <label for="porcentajeiva">Porcentaje IVA</label>
+                    <input id="porcentajeiva" [(ngModel)]="newProducto.porcentajeiva" name="porcentajeiva" type="number" class="form-control" [disabled]="!newProducto.isiva" />
+                  </div>
+                  <hr>
+                  <button type="submit" class="btn btn-outline-success">Agregar Producto</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- Modal editarProducto-->
+      <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Producto</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+        <form *ngIf="editingProducto" (ngSubmit)="updateProducto()">
+          <div class="form-group">
+            <label for="codigo">Código</label>
+            <input id="codigo" [(ngModel)]="editingProducto.codigo" name="codigo" class="form-control" required readonly />
+          </div>
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" [(ngModel)]="editingProducto.nombre" name="nombre" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="valorventa">Valor Venta</label>
+            <input id="valorventa" [(ngModel)]="editingProducto.valorventa" name="valorventa" type="number" class="form-control" required />
+          </div>
+          <div class="form-check">
+            <input id="isiva" [(ngModel)]="editingProducto.isiva" name="isiva" type="checkbox" class="form-check-input" />
+            <label for="isiva" class="form-check-label">Incluye IVA</label>
+          </div>
+          <div class="form-group">
+            <label for="porcentajeiva">Porcentaje IVA</label>
+            <input id="porcentajeiva" [(ngModel)]="editingProducto.porcentajeiva" name="porcentajeiva" type="number" class="form-control" [disabled]="!editingProducto.isiva" />
+          </div>
+          <hr>
+          <button type="submit" class="btn btn-outline-success">Actualizar</button>
+          <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancelar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+    <div class="row mt-4">
+      <div class="col-sm-6 col-md-4" *ngFor="let producto of productos">
+        <div class="card text-bg-dark shadow-lg mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ producto.nombre }}</h5>
+            <p class="card-text">
+              Código: {{ producto.codigo }}<br />
+              Valor Venta: {{ producto.valorventa }}<br />
+              Incluye IVA: {{ producto.isiva ? 'Sí' : 'No' }}<br />
+              Porcentaje IVA: {{ producto.porcentajeiva }}%
+            </p>
+            <button class="btn btn btn-outline-light" (click)="editProducto(producto)" data-bs-toggle="modal" data-bs-target="#editarModal">Editar</button>
+            <button class="btn btn btn-outline-light" (click)="deleteProducto(producto.codigo)">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

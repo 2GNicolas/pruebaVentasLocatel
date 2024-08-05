@@ -1,0 +1,4 @@
+.selected {
+    border: 2px solid rgb(57, 170, 72);
+    border-width: 0.3rem;
+  }

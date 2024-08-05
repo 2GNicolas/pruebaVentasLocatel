@@ -1,0 +1,100 @@
+<div class="container">
+    <h2>Clientes</h2>
+
+    <button type="button" class="btn btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Crear nuevo cliente
+      </button>
+
+      <!-- Modal crear usuario-->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Cliente</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                      
+                      <label for="cedula">Cédula:</label>
+                      <input id="cedula" [(ngModel)]="newCliente.cedula" class="form-control" required>
+                      <label for="nombre">Nombre:</label>
+                      <input id="nombre" [(ngModel)]="newCliente.nombre" class="form-control" required>
+                      <label for="direccion">Dirección:</label>
+                      <input id="direccion" [(ngModel)]="newCliente.direccion" class="form-control" required>
+                      <label for="telefono">Teléfono:</label>
+                      <input id="telefono" [(ngModel)]="newCliente.telefono" class="form-control" required>
+                      <label for="email">Email:</label>
+                      <input id="email" [(ngModel)]="newCliente.email" class="form-control" required>
+                      
+                    </div>
+              </div>
+              <div class="modal-footer">
+                <button (click)="addCliente()" class="btn btn-outline-success">Agregar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+  
+    
+  
+    <hr>
+  
+    <div class="row">
+      <div class="col-sm-6 col-md-4" *ngFor="let cliente of clientes">
+        <div class="card text-bg-dark shadow-lg mb-3">
+            <div class="card-header">
+                <h5 class="card-title">{{ cliente.nombre }}</h5>
+            </div>
+          <div class="card-body">
+            
+            <p class="card-text"><strong>Cédula:</strong> {{ cliente.cedula }}</p>
+            <p class="card-text"><strong>Dirección:</strong> {{ cliente.direccion }}</p>
+            <p class="card-text"><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
+            <p class="card-text"><strong>Email:</strong> {{ cliente.email }}</p>
+            <button (click)="editCliente(cliente)" class="btn btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#editarModal">Editar</button>
+            <button (click)="deleteCliente(cliente.cedula)" class="btn btn btn-outline-light">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+          <!-- Modal editarCliente-->
+
+    <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+      <div class="modal-dialog ">
+        <div class="modal-content" >
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Cliente</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="form-group">
+  
+    <div *ngIf="editingCliente">
+      
+      
+      <h3>Editar Cliente</h3>
+      <label for="edit-cedula">Cédula:</label>
+      <input id="edit-cedula" [(ngModel)]="editingCliente.cedula" class="form-control" disabled>
+      <label for="edit-nombre">Nombre:</label>
+      <input id="edit-nombre" [(ngModel)]="editingCliente.nombre" class="form-control" required>
+      <label for="edit-direccion">Dirección:</label>
+      <input id="edit-direccion" [(ngModel)]="editingCliente.direccion" class="form-control" required>
+      <label for="edit-telefono">Teléfono:</label>
+      <input id="edit-telefono" [(ngModel)]="editingCliente.telefono" class="form-control" required>
+      <label for="edit-email">Email:</label>
+      <input id="edit-email" [(ngModel)]="editingCliente.email" class="form-control" required>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button (click)="updateCliente()" class="btn btn-outline-success">Actualizar</button>
+  <button (click)="cancelEdit()" class="btn btn-secondary mt-2">Cancelar</button>
+</div>
+</div>
+</div>
+</div>
+  </div>
+  

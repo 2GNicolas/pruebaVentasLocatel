@@ -1,0 +1,112 @@
+<div>
+    
+    
+  
+    <h2>Crear Nueva Venta</h2>
+    <div class="container mt-5">
+        <form [formGroup]="ventaForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha</label>
+            <input type="datetime-local" id="fecha" formControlName="fecha" class="form-control" >
+          </div>
+          <div class="form-group">
+            <label>Seleccione el cliente</label>
+            <div class="row">
+              <div class="col-md-2" *ngFor="let cliente of clientes">
+                <div class="card text-bg-dark shadow-lg mb-3" style="width: 10rem;" [class.selected]="cliente === clienteSeleccionado" (click)="seleccionarCliente(cliente)">
+                  <div class="card-body">
+                    <p class="card-text">{{ cliente.nombre }}</p>
+                    <p class="card-text">CC: {{ cliente.cedula }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="totalventa" class="form-label">Total Venta</label>
+            <input type="number" id="totalventa" formControlName="totalventa" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Productos</label>
+            <div class="row">
+              <div class="col-md-2" *ngFor="let producto of productos">
+                <div class="card text-bg-dark shadow-lg mb-3" style="width: 10rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text">Precio: {{ producto.valorventa }}</p>
+                    <p class="card-text">IVA: {{ producto.porcentajeiva }}%</p>
+                    <input type="number" class="form-control" placeholder="Cantidad" 
+                           (change)="onCantidadChange(producto, $event)" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn btn-success">Vender</button>
+            
+        </form>
+        <hr>
+        <a class="btn btn-success" (click)="obtenerVentas()" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Lista de Ventas
+      </a>
+      </div>
+          
+      
+      <div class="container mt-5">
+    
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          <table class="table table-dark table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Nombre del cliente</th>
+                <th scope="col">Total</th>
+                <th scope="col">Detalle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let venta of ventas">
+                <th scope="row">{{venta.consecutivo}}</th>
+                <td>{{venta.fecha}}</td>
+                <td>{{venta.cliente}}</td>
+                <td>{{venta.totalventa}}</td>
+                <td><button class="btn btn-outline-success" (click)="Detalles(venta.consecutivo)">Ver Detalles</button></td>
+                <div *ngIf="detallesVisible[venta.consecutivo]">
+                  <!-- <ul>
+                    <li *ngFor="let detalle of detalles">
+                      Producto: {{ detalle.productocodigo }} - Precio: {{ detalle.valorproducto }} - IVA: {{ detalle.iva }}%
+                    </li>
+                  </ul> -->
+                  <table class="table table-dark table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Iva calculado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let detalle of detalles">
+                        <th scope="row">1</th>
+                        <td>{{detalle.productocodigo}}</td>
+                        <td>{{detalle.valorproducto}}</td>
+                        <td>{{detalle.iva}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </tr>
+             
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
